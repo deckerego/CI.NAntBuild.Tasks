@@ -5,7 +5,7 @@ using System.Resources;
 using CI.MSBuild.Tasks.Properties;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
-using Microsoft.VisualStudio.CodeCoverage;
+using Microsoft.VisualStudio.Coverage.Analysis;
 
 namespace CI.MSBuild.Tasks
 {
@@ -83,23 +83,25 @@ namespace CI.MSBuild.Tasks
                             symbolsDir = SymbolsDirectory.ItemSpec;
                         }
 
-                        CoverageInfoManager.SymPath = symbolsDir;
-                        CoverageInfoManager.ExePath = symbolsDir;
-                        CoverageInfo info = CoverageInfoManager.CreateInfoFromFile(sourceFile);
-                        CoverageDS dataSet = info.BuildDataSet(null);
-                        string outputFile = Path.ChangeExtension(sourceFile, "xml");
 
-                        // Unless an output dir is specified
-                        // the converted files will be stored in the same dir
-                        // as the source files, with the .XML extension
-                        if (OutputDirectory != null)
+                        using (CoverageInfo info = CoverageInfo.CreateFromFile(
+                            sourceFile, executablePaths: new [] { symbolsDir }, symbolPaths: new [] {symbolsDir}))
                         {
-                            outputFile = Path.Combine(OutputDirectory.ItemSpec, Path.GetFileName(outputFile));
+                            CoverageDS dataSet = info.BuildDataSet(null);
+                            string outputFile = Path.ChangeExtension(sourceFile, "xml");
+
+                            // Unless an output dir is specified
+                            // the converted files will be stored in the same dir
+                            // as the source files, with the .XML extension
+                            if (OutputDirectory != null)
+                            {
+                                outputFile = Path.Combine(OutputDirectory.ItemSpec, Path.GetFileName(outputFile));
+                            }
+
+                            dataSet.WriteXml(outputFile);
+
+                            Log.LogMessageFromResources(MessageImportance.Normal, "WrittenXmlCoverageFile", outputFile);
                         }
-
-                        dataSet.WriteXml(outputFile);
-
-                        Log.LogMessageFromResources(MessageImportance.Normal, "WrittenXmlCoverageFile", outputFile);
 
                         ITaskItem item = new TaskItem(file);
                         results.Add(item);
