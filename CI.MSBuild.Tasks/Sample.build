@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Coverage" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
+    </PropertyGroup>
+
+    <UsingTask TaskName="ConvertVSCoverageToXml" AssemblyFile="bin\$(Configuration)\CI.MSBuild.Tasks.dll" />
+
+    <Target Name="Coverage">
+        <Message Text="Processing code coverage results..." />
+        <ConvertVSCoverageToXml CoverageFiles="OutputDirectory\In\$(ComputerName)\data.coverage"
+                                SymbolsDirectory="OutputDirectory\Out" />
+    </Target>
+</Project>
