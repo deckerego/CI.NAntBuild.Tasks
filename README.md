@@ -6,4 +6,4 @@ Based off http://archive.msdn.microsoft.com/vscoveragetoxmltask and
 http://wiki.hudson-ci.org/display/HUDSON/MSTest+Coverage+Reports, just updated
 for VS2010.
 
-See Example.msbuild for usage.
+See `Example.msbuild` for usage.
