@@ -18,7 +18,7 @@
 
 		<!-- serialize the binary coverage data into xml -->
 		<ConvertVSCoverageToXml
-			CoverageFiles="$(Workspace)\TestResults\In\GARETHRW7PC\data.coverage"
+			CoverageFiles="$(Workspace)\TestResults\In\YourMachineName\data.coverage"
 			SymbolsDirectory="$(Workspace)\TestResults\Out"
 			/>
 
