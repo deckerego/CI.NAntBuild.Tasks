@@ -1,29 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="RunTestsAndExtractResults" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<!-- requires:
-			- CI.MSBuild.Tasks.dll
-			- Microsoft.VisualStudio.Coverage.Analysis.dll
-			- Microsoft.VisualStudio.Coverage.Symbols.dll
-	-->
-	<UsingTask TaskName="ConvertVSCoverageToXml" AssemblyFile="CI.MSBuild.Tasks.dll" />
-
-	<Target Name="RunTestsAndExtractResults">
-	
-		<!-- run tests with coverage -->
-		<Exec
-			Command="mstest.exe /testcontainer:Path\To\Tests.dll /resultsfile:TestResults.trx /testsettings:WithCoverage.testsettings"
-			WorkingDirectory="$(Workspace)"
-			IgnoreExitCode="True"
-			/>
-
-		<!-- serialize the binary coverage data into xml -->
-		<ConvertVSCoverageToXml
-			CoverageFiles="$(Workspace)\TestResults\In\YourMachineName\data.coverage"
-			SymbolsDirectory="$(Workspace)\TestResults\Out"
-			/>
-
-		<!-- convert the xml into emma-compatible xml -->
-		<Exec Command="msxsl.exe $(Workspace)\Path\To\data.xml $(MSBuildProjectDirectory)\MSTestCoverageToEmma.xsl -o $(Workspace)\Coverage.xml" />
-		
-	</Target>
-</Project>
+<?xml version="1.0"?>
+<project name="Sample Conversion" default="convert">
+	<target name="convert">
+		<convertvscoveragetoxml coveragefile="TestResults\MyTests\In\MYMACHINE\data.coverage" symbolsdirectory="TestResults\MyTests\Out" />
+		<style style="MSTestCoverageToEmma.xsl" in="TestResults\MyTests\In\MYMACHINE\data.xml" out="TestResults\MyTests\In\MYMACHINE\jenkins_emma_coverage.xml" />
+	</target>
+</project>

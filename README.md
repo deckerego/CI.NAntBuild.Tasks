@@ -15,3 +15,8 @@ Building this task requires the following dependencies:
 * Visual Studio 2010 Code Coverage Test library
 
 These assemblies are not included as part of this project. The Visual Studio Code Coverage library should be provided as part of Visual Studio Premium or Ultimate (or whatever) and will be auto-magically detected as a project reference. The NAnt Core libraries can be provided by NuGet or the like.
+
+Runtime Dependencies
+--------------------
+
+A runtime dependency of this task is the Microsoft.VisualStudio.Coverage.Symbols library, which ships with Visual Studio 2010. Ensure this is deployed alongside the CI.NAntBuild.Tasks assembly, else you may get "Unable to load DLL 'Microsoft.VisualStudio.Coverage.Symbols.dll'" exceptions at runtime.
