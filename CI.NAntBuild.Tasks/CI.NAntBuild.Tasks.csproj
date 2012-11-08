@@ -8,8 +8,8 @@
     <ProjectGuid>{943DA2D3-0556-4DB6-A63C-1B2D9B27630D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CI.MSBuild.Tasks</RootNamespace>
-    <AssemblyName>CI.MSBuild.Tasks</AssemblyName>
+    <RootNamespace>CI.NAntBuild.Tasks</RootNamespace>
+    <AssemblyName>CI.NAntBuild.Tasks</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
@@ -58,7 +58,7 @@
     <Reference Include="Microsoft.Build.Utilities" />
     <Reference Include="Microsoft.VisualStudio.Coverage.Analysis, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\PrivateAssemblies\Microsoft.VisualStudio.Coverage.Analysis.dll</HintPath>
+      <HintPath>$(VS100COMNTOOLS)..\IDE\PrivateAssemblies\Microsoft.VisualStudio.Coverage.Analysis.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
